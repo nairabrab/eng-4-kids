@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Card } from '../components'
 import {
   FullState,
   addGameStats,
@@ -71,13 +70,15 @@ export default (): JSX.Element => {
     return <div>Please select a valid page from a menu</div>
   }
 
-  const gameCardClick = (order: number) => () => {
-    dispatch(clickCard(order))
-  }
-
-  const trainingCardClick = (id: string) => () => {
-    dispatch(addTrainStats(id))
-  }
+  const gameCardClick =
+    ({ id, order }: { order: number; id: string }) =>
+    () => {
+      if (isGame) {
+        dispatch(clickCard(order))
+        return
+      }
+      dispatch(addTrainStats(id))
+    }
 
   return (
     <div>
@@ -93,27 +94,19 @@ export default (): JSX.Element => {
         </button>
       )}
       <section>
-        {currentDeck.cards.map(({ word, order, image, match, audioSrc, translation }) =>
-          isGame ? (
-            <GameCard
-              isWrong={currentWrong?.some(element => element === order)}
-              isMatch={match}
-              image={image}
-              onClick={gameCardClick(order)}
-              word={word}
-              key={word}
-            />
-          ) : (
-            <Card
-              translation={translation}
-              key={word}
-              word={word}
-              image={image}
-              audioSrc={audioSrc}
-              onClick={trainingCardClick(`${currentDeck.id}_${word}`)}
-            />
-          ),
-        )}
+        {currentDeck.cards.map(({ word, order, image, match, audioSrc, translation }) => (
+          <GameCard
+            isGame={isGame}
+            translation={translation}
+            key={word}
+            word={word}
+            image={image}
+            audioSrc={audioSrc}
+            isWrong={currentWrong?.some(element => element === order)}
+            isMatch={match}
+            onClick={gameCardClick({ order, id: `${currentDeck.id}_${word}` })}
+          />
+        ))}
       </section>
     </div>
   )
