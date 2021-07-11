@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { dataArray } from '../../data'
 import { Burger } from '../Burger'
 import { Toggle } from '../Toggle'
+import { ChartIcon } from '../Icons'
 import { FullState, gameModeOn, resetGameMode } from '../../store'
 
 import styles from './header.module.scss'
@@ -30,8 +31,9 @@ export const Header: FC = () => {
     <header className={styles.header}>
       <Burger toggle={toggleSideBar} value={sidebarActive} />
       <Toggle text={isGame ? 'Play' : 'Train'} value={isGame} toggle={toggleGameMode} />
-      <Link activeStyle={{ color: 'red' }} to='/stats'>
-        Stats
+      <Link className={styles.link} activeClassName={styles.current} to='/stats'>
+        <span>Statistics</span>
+        <ChartIcon />
       </Link>
       <aside className={clsx(styles.aside, sidebarActive && styles.active)}>
         <Link activeStyle={{ color: 'red' }} exact to='/'>
