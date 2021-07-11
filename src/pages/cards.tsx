@@ -2,20 +2,16 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import {
-  FullState,
-  addGameStats,
-  addTrainStats,
-  clickCard,
-  gameModeOn,
-  resetGameMode,
-  setCurrentDeck,
-  startGame,
-} from '../store'
+import { FullState, addGameStats, addTrainStats, clickCard, setCurrentDeck, startGame } from '../store'
 import { GameCard } from '../components/GameCard'
 
 interface Parameters {
   deck?: string
+}
+
+interface DeckArguments {
+  order: number
+  id: string
 }
 
 export default (): JSX.Element => {
@@ -26,8 +22,6 @@ export default (): JSX.Element => {
   const currentDeck = useSelector((state: FullState) => state.game.decks[state.game.currentDeck || 0])
   const isGame = useSelector((state: FullState) => state.game.isGame)
   const gameStatus = useSelector((state: FullState) => state.game.gameStatus)
-  const allClicks = useSelector((state: FullState) => state.statistics.allClicks)
-  const allMismatchedClicks = useSelector((state: FullState) => state.statistics.allMismatchedClicks)
   const lastAction = useSelector((state: FullState) => state.game.lastAction)
   const currentWrong = useSelector((state: FullState) => state.game.currentWrong)
 
@@ -39,8 +33,8 @@ export default (): JSX.Element => {
     if (!lastAction || gameStatus === 'idle') {
       return
     }
-    const [isMismatch, order] = lastAction
-    dispatch(addGameStats({ order, isMismatch }))
+    const [isMismatch, id] = lastAction
+    dispatch(addGameStats({ id, isMismatch }))
   }, [lastAction, dispatch, gameStatus])
 
   useEffect(() => {
@@ -55,13 +49,6 @@ export default (): JSX.Element => {
     }
   }, [gameStatus, history])
 
-  const toggleGameMode = () => {
-    if (isGame) {
-      return dispatch(resetGameMode())
-    }
-    return dispatch(gameModeOn())
-  }
-
   const startNewGame = (): void => {
     dispatch(startGame())
   }
@@ -71,28 +58,18 @@ export default (): JSX.Element => {
   }
 
   const gameCardClick =
-    ({ id, order }: { order: number; id: string }) =>
+    ({ id, order }: DeckArguments) =>
     () => {
       if (isGame) {
-        dispatch(clickCard(order))
+        dispatch(clickCard({ order, id }))
         return
       }
       dispatch(addTrainStats(id))
     }
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>{currentDeck.name}</h1>
-      <h2>{gameStatus}</h2>
-      <h3>{`${allMismatchedClicks} / ${allClicks}`}</h3>
-      <button type='button' onClick={toggleGameMode}>
-        {isGame ? 'Play' : 'Train'}
-      </button>
-      {isGame && (
-        <button type='button' onClick={startNewGame}>
-          Start Game
-        </button>
-      )}
       <section>
         {currentDeck.cards.map(({ word, order, image, match, audioSrc, translation }) => (
           <GameCard
@@ -108,6 +85,22 @@ export default (): JSX.Element => {
           />
         ))}
       </section>
+      {isGame && (
+        <button
+          style={{
+            width: '50%',
+            border: 'none',
+            background: '#faf',
+            padding: '0.5rem',
+            marginBottom: '2rem',
+            borderRadius: '2rem',
+            color: 'white',
+          }}
+          type='button'
+          onClick={startNewGame}>
+          Start Game
+        </button>
+      )}
     </div>
   )
 }

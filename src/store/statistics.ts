@@ -8,17 +8,22 @@ export interface StatsState {
   cardsWithStatistics: CardStats[]
 }
 
-const getInitialState = (): StatsState => ({
-  allClicks: 0,
-  allMismatchedClicks: 0,
-  cardsWithStatistics,
-})
+const getInitialState = (): StatsState =>
+  localStorage.getItem('state')
+    ? (JSON.parse(localStorage.getItem('state') || '') as StatsState)
+    : {
+        allClicks: 0,
+        allMismatchedClicks: 0,
+        cardsWithStatistics,
+      }
 
 const initialState = getInitialState()
 
+const setStoredState = (state: StatsState): void => localStorage.setItem('state', JSON.stringify(state))
+
 interface AddStatsPayload {
   isMismatch?: true
-  order: number
+  id: string
 }
 
 export const statisticsSlice = createSlice({
@@ -26,17 +31,20 @@ export const statisticsSlice = createSlice({
   initialState,
   reducers: {
     addGameStats: (state, { payload }: PayloadAction<AddStatsPayload>) => {
-      const { order, isMismatch } = payload
-      state.allClicks += 1
-      if (!state.cardsWithStatistics[order]) {
+      const { id, isMismatch } = payload
+      const index = state.cardsWithStatistics.findIndex(card => card.id === id)
+
+      if (index === -1) {
         return
       }
+      state.allClicks += 1
       if (isMismatch) {
-        state.cardsWithStatistics[order].mismatchCount += 1
+        state.cardsWithStatistics[index].mismatchCount += 1
         state.allMismatchedClicks += 1
       } else {
-        state.cardsWithStatistics[order].rightCount += 1
+        state.cardsWithStatistics[index].rightCount += 1
       }
+      setStoredState(state)
     },
     addTrainStats: (state, { payload }: PayloadAction<string>) => {
       const index = state.cardsWithStatistics.findIndex(card => card.id === payload)
@@ -44,10 +52,24 @@ export const statisticsSlice = createSlice({
         return
       }
       state.cardsWithStatistics[index].trainingCount += 1
+      setStoredState(state)
     },
-    resetStats: () => initialState,
+    resetStats: () => {
+      setStoredState({
+        allClicks: 0,
+        allMismatchedClicks: 0,
+        cardsWithStatistics,
+      })
+      return { ...initialState }
+    },
+    repeatDifficult: state => {
+      const difficultCardDeck = state.cardsWithStatistics
+        .filter(card => card.mismatchCount > 0)
+        .sort((a, b) => b.mismatchCount - a.mismatchCount)
+      console.log(difficultCardDeck.length)
+    },
   },
 })
 
-export const { addGameStats, addTrainStats, resetStats } = statisticsSlice.actions
+export const { addGameStats, addTrainStats, resetStats, repeatDifficult } = statisticsSlice.actions
 export default statisticsSlice.reducer

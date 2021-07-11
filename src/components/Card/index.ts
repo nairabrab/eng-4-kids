@@ -1,1 +1,1 @@
-export * from './ccard'
+export * from './card'

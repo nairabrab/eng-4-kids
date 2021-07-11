@@ -12,7 +12,7 @@ export interface AppState {
   gameStatus: 'idle' | 'playing' | 'game over' | 'victory'
   isGame?: true
   isPerfect: boolean
-  lastAction?: [true | undefined, number]
+  lastAction?: [true | undefined, string]
 }
 
 const initialState: AppState = {
@@ -25,6 +25,11 @@ const initialState: AppState = {
   gameStatus: 'idle',
   isPerfect: true,
   lastAction: undefined,
+}
+
+interface ClickCardPayload {
+  id: string
+  order: number
 }
 
 export const gameSlice = createSlice({
@@ -58,10 +63,12 @@ export const gameSlice = createSlice({
       state.isGame = undefined
       state.currentCard = undefined
       state.gameStatus = 'idle'
+      state.currentWrong = []
       state.decks = initialState.decks
     },
     startGame: state => {
       if (state.currentDeck) {
+        state.currentWrong = []
         state.gameStatus = 'playing'
         state.decks = initialState.decks
         const currentDeckIndex = state.currentDeck
@@ -76,19 +83,20 @@ export const gameSlice = createSlice({
         state.cardsLeft = cardsLeft
       }
     },
-    clickCard: (state, { payload }: PayloadAction<number>) => {
+    clickCard: (state, { payload }: PayloadAction<ClickCardPayload>) => {
+      const { id, order } = payload
       if (!state.isGame || state.gameStatus === 'idle') {
         return
       }
-      state.lastAction = [undefined, payload]
+      state.lastAction = [undefined, id]
       if (!state.currentDeck || !state.currentCard) {
         return
       }
-      const isCurrentIndex = state.currentCard.order === payload
+      const isCurrentIndex = state.currentCard.order === order
 
       if (!isCurrentIndex) {
-        state.lastAction = [true, payload]
-        state.currentWrong.push(payload)
+        state.lastAction = [true, id]
+        state.currentWrong.push(order)
         state.isPerfect = false
         return
       }
@@ -98,7 +106,7 @@ export const gameSlice = createSlice({
         return
       }
 
-      state.decks[currentDeckIndex].cards[payload].match = true
+      state.decks[currentDeckIndex].cards[order].match = true
       const cardsLeftInDeck = state.cardsLeft
       if (cardsLeftInDeck?.length) {
         const indexOfRandomCard = Math.floor(Math.random() * cardsLeftInDeck.length)

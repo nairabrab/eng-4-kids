@@ -7,15 +7,25 @@ export default (): JSX.Element => {
   const dispatch = useDispatch()
   const cards = useSelector((state: FullState) => state.statistics.cardsWithStatistics)
 
-  const onClick = () => {
+  const reset = () => {
     dispatch(resetStats())
   }
 
+  // const repeat = () => {
+  //   dispatch(repeatDifficult())
+  // }
+
   return (
     <>
-      <div>
-        <h1>Statistics</h1>
-        <table>
+      <h1>Statistics</h1>
+      {/* <button type='button' onClick={repeat}>
+        Repeat difficult
+      </button> */}
+      <button type='button' onClick={reset}>
+        Reset
+      </button>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ borderSpacing: '8px' }}>
           <thead>
             <tr>
               {['Category', 'Word', 'Translation', 'Trained', 'Correct', 'Incorrect', '%'].map(element => (
@@ -38,9 +48,6 @@ export default (): JSX.Element => {
           </tbody>
         </table>
       </div>
-      <button type='button' onClick={onClick}>
-        Reset
-      </button>
     </>
   )
 }

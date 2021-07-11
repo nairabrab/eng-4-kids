@@ -1,5 +1,3 @@
-// import { base } from '../consts/path'
-
 export interface Data {
   id: string
   deckName: string
@@ -8,7 +6,7 @@ export interface Data {
     translation: string
   }[]
 }
-// ${base}
+
 export const IMAGE_PATH = `/assets/img/`
 export const AUDIO_PATH = `/assets/audio/`
 
