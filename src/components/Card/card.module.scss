@@ -1,0 +1,39 @@
+.card {
+  background-color: #f00;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 25px;
+  max-width: 200px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: all 0.5s;
+
+  button {
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+  }
+
+  h3 {
+    font-weight: 500;
+    margin: 5px 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.flipped {
+  cursor: default;
+  transform: rotateY(180deg) translateX(-100%);
+  transform-origin: left;
+
+  h3 {
+    transform: rotateY(180deg);
+  }
+}
