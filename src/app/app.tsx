@@ -5,6 +5,7 @@ import routes from '../routes'
 import { Header } from '../components'
 
 import styles from './app.module.scss'
+import Footer from '../components/Footer/Footer'
 
 export const App: FC = () => {
   return (
@@ -19,6 +20,7 @@ export const App: FC = () => {
           </Switch>
         </Suspense>
       </main>
+      <Footer />
     </section>
   )
 }
