@@ -21,6 +21,7 @@ export default (): JSX.Element => {
       {/* <button type='button' onClick={repeat}>
         Repeat difficult
       </button> */}
+
       <button type='button' onClick={reset}>
         Reset
       </button>
