@@ -5,19 +5,19 @@ Footer {
 .footer-container {
   padding: 0 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  max-width: 1140px;
   margin: 0 auto;
   background-color: #0f0f0f;
 }
+
 .github {
   display: block;
   width: 120px;
   height: 45px;
   padding-left: 45px;
-  background-image: url('../../../public/assets/icons/github.svg');
+  background-image: url('../../assets/icons/github.svg');
   background-size: 35px;
   background-repeat: no-repeat;
   background-position: left center;
@@ -36,7 +36,7 @@ Footer {
   font-family: 'Open Sans', sans-serif;
   width: 86px;
   height: 32px;
-  background-image: url('../../../public/assets/icons/rss.svg');
+  background-image: url('../../assets/icons/rss.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;

@@ -7,6 +7,8 @@
   position: relative;
   color: inherit;
   text-decoration: none;
+  margin-right: 10px;
+  margin-left: 10px;
 
   box-shadow: 0 0 0.5rem #0008;
 
@@ -14,20 +16,9 @@
     box-shadow: 0 0 0.7rem #0008;
   }
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0 0 2000px rgba(25, 25, 25, 0.5);
-    filter: blur(10px);
-  }
-
   h2 {
     position: absolute;
-    color:white;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,5 +37,6 @@
   img {
     aspect-ratio: 3/2;
     width: 100%;
+    filter: brightness(70%);
   }
 }

@@ -1,15 +1,20 @@
 .section {
-  margin-top:1rem;
-  display: flex;
-  flex-direction: row;
-  position:relative;
+  margin-top: 1rem;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
 }
 
 .main {
-  margin-left: 0;
-  padding: 0 5%;
-  transition: margin-left 0.5s;
-  width:100%;
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  margin-top:2rem;
+  width: 100%;
   > h1 {
     text-align: center;
   }

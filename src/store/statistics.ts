@@ -20,7 +20,6 @@ const getInitialState = (): StatsState =>
 const initialState = getInitialState()
 
 const setStoredState = (state: StatsState): void => localStorage.setItem('state', JSON.stringify(state))
-
 interface AddStatsPayload {
   isMismatch?: true
   id: string

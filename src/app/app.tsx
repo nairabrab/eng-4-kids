@@ -1,11 +1,11 @@
-import React, { FC, Suspense, useState } from 'react'
+import React, { FC, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import routes from '../routes'
 import { Header } from '../components'
 
 import styles from './app.module.scss'
-import Footer from '../components/Footer/Footer'
+import { Footer } from '../components/Footer'
 
 export const App: FC = () => {
   return (
