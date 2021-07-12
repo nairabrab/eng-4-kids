@@ -30,6 +30,7 @@ export const Header: FC = () => {
   return (
     <header className={styles.header}>
       <Burger toggle={toggleSideBar} value={sidebarActive} />
+      <span />
       <Toggle text={isGame ? 'Play' : 'Train'} value={isGame} toggle={toggleGameMode} />
       <Link className={styles.link} activeClassName={styles.current} to='/stats'>
         <span>Statistics</span>

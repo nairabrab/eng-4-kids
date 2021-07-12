@@ -27,12 +27,8 @@ export default (): JSX.Element => {
   const [stars, setStars] = useState<boolean[]>([])
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     if (currentWrong.length) setStars([...stars, false])
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     else if (currentCard) setStars([...stars, true])
-    console.log(stars.slice(1, 3))
-    console.log(stars)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWrong, currentCard])
 
@@ -81,8 +77,6 @@ export default (): JSX.Element => {
       }
       dispatch(addTrainStats(id))
     }
-
-  // Math.floor(Math.random() * 10)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
