@@ -27,21 +27,25 @@ export const Header: FC = () => {
     setSidebarActive(status => !status)
   }
 
+  const closeMenu = () => {
+    setSidebarActive(false)
+  }
+
   return (
     <header className={styles.header}>
       <Burger toggle={toggleSideBar} value={sidebarActive} />
       <span />
       <Toggle text={isGame ? 'Play' : 'Train'} value={isGame} toggle={toggleGameMode} />
-      <Link className={styles.link} activeClassName={styles.current} to='/stats'>
+      <Link onClick={closeMenu} className={styles.link} activeClassName={styles.current} to='/stats'>
         <span>Statistics</span>
         <ChartIcon />
       </Link>
       <aside className={clsx(styles.aside, sidebarActive && styles.active)}>
-        <Link activeStyle={{ color: 'red' }} exact to='/'>
+        <Link onClick={closeMenu} activeStyle={{ color: 'red' }} exact to='/'>
           Main Page
         </Link>
         {dataArray.map(({ deckName, id }) => (
-          <Link activeStyle={{ color: 'red' }} key={id} to={`/cards/${id}`}>
+          <Link onClick={closeMenu} activeStyle={{ color: 'red' }} key={id} to={`/cards/${id}`}>
             {deckName}
           </Link>
         ))}

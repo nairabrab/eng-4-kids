@@ -5,7 +5,23 @@ import { Provider } from 'react-redux'
 
 import './index.scss'
 import { App } from './app'
-import { store } from './store'
+import { store, hydrate, StatsState } from './store'
+
+const getStatsFromLocalStorage = () => {
+  try {
+    const persistedState = localStorage.getItem('stats')
+    if (persistedState) return JSON.parse(persistedState) as StatsState
+    return null
+  } catch (e) {
+    return null
+  }
+}
+
+const stats = getStatsFromLocalStorage()
+
+if (stats) {
+  store.dispatch(hydrate(stats))
+}
 
 render(
   <StrictMode>

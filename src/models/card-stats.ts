@@ -6,6 +6,7 @@ export interface CardStats {
   mismatchCount: number
   rightCount: number
   trainingCount: number
+  matchPercentage: number
   translation: string
   word: string
 }
@@ -25,6 +26,7 @@ const cardStatsBuilder = ({ word, translation, deckName, id }: CardStatsBuilderA
   rightCount: 0,
   trainingCount: 0,
   mismatchCount: 0,
+  matchPercentage: 0,
 })
 
 export const cardsWithStatistics = dataArray.flatMap(({ items, deckName, id }) => {

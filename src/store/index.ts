@@ -20,6 +20,10 @@ export interface FullState {
   statistics: StatsState
 }
 
+store.subscribe(() => {
+  localStorage.setItem('stats', JSON.stringify(store.getState().statistics))
+})
+
 // const rootReducer = combineReducers({ game: gameReducer, stats: statsReducer })
 // export const store = configureStore({rootReducer}
 // export default rootReducer
