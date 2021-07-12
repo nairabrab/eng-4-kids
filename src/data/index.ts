@@ -40,6 +40,20 @@ export const dataArray: Data[] = [
     ],
   },
   {
+    id: 'action-c',
+    deckName: 'Action (set C)',
+    items: [
+      { word: 'listen', translation: 'слушать' },
+      { word: 'lose', translation: 'проиграть, потерять' },
+      { word: 'read', translation: 'читать' },
+      { word: 'stand up', translation: 'встать' },
+      { word: 'sit down', translation: 'сесть' },
+      { word: 'win', translation: 'выиграть' },
+      { word: 'write', translation: 'писать' },
+      { word: 'yell', translation: 'кричать' },
+    ],
+  },
+  {
     id: 'animal-a',
     deckName: 'Animal (set A)',
     items: [
@@ -64,6 +78,21 @@ export const dataArray: Data[] = [
       { word: 'mouse', translation: 'мышь' },
       { word: 'turtle', translation: 'черепаха' },
       { word: 'dolphin', translation: 'дельфин' },
+      { word: 'raccoon', translation: 'енот' },
+    ],
+  },
+  {
+    id: 'animal-с',
+    deckName: 'Animal (set C)',
+    items: [
+      { word: 'bull', translation: 'бык' },
+      { word: 'cock', translation: 'петух' },
+      { word: 'cow', translation: 'корова' },
+      { word: 'goose', translation: 'гусь' },
+      { word: 'monkey', translation: 'обезьяна' },
+      { word: 'swan', translation: 'лебедь' },
+      { word: 'tiger', translation: 'тигр' },
+      { word: 'whale', translation: 'кит' },
     ],
   },
   {
