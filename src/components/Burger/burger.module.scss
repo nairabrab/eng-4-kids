@@ -2,6 +2,7 @@
   display: inline-block;
   cursor: pointer;
   appearance: none;
+  position: fixed;
   padding:0;
   margin:0;
   border:0;
@@ -20,7 +21,6 @@
 }
 
 .active {
-  position: fixed;
   span {
     background-color:white;
     &:nth-child(1) {

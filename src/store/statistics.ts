@@ -20,6 +20,7 @@ const getInitialState = (): StatsState =>
 const initialState = getInitialState()
 
 const setStoredState = (state: StatsState): void => localStorage.setItem('state', JSON.stringify(state))
+
 interface AddStatsPayload {
   isMismatch?: true
   id: string
@@ -54,12 +55,15 @@ export const statisticsSlice = createSlice({
       setStoredState(state)
     },
     resetStats: () => {
-      setStoredState({
-        allClicks: 0,
-        allMismatchedClicks: 0,
-        cardsWithStatistics,
-      })
-      return { ...initialState }
+      const resetedState = {
+        ...{
+          allClicks: 0,
+          allMismatchedClicks: 0,
+          cardsWithStatistics,
+        },
+      }
+      setStoredState(resetedState)
+      return resetedState
     },
     repeatDifficult: state => {
       const difficultCardDeck = state.cardsWithStatistics
