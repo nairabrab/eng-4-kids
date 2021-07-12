@@ -65,7 +65,9 @@ export const statisticsSlice = createSlice({
       const difficultCardDeck = state.cardsWithStatistics
         .filter(card => card.mismatchCount > 0)
         .sort((a, b) => b.mismatchCount - a.mismatchCount)
+        .slice(0, 7)
       console.log(difficultCardDeck.length)
+      difficultCardDeck.map(el => console.log(el.id))
     },
   },
 })

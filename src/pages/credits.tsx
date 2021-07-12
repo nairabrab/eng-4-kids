@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { FullState, resetGameMode } from '../store'
 
-import happyImage from '../../public/assets/img/happy.jpg'
-import sadImage from '../../public/assets/img/sad.jpg'
-import failureSrc from '../../public/assets/audio/failure.mp3'
-import successSrc from '../../public/assets/audio/success.mp3'
+const happyImage = '/assets/img/happy.jpg'
+const sadImage = '/assets/img/sad.jpg'
+const failureSrc = '/assets/audio/failure.mp3'
+const successSrc = '/assets/audio/success.mp3'
 
 export default (): JSX.Element => {
   const dispatch = useDispatch()

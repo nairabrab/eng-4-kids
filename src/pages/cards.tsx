@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FullState, addGameStats, addTrainStats, clickCard, setCurrentDeck, startGame, repeatWord } from '../store'
-import { GameCard } from '../components/GameCard'
+import { GameCard, Button } from '../components'
 
 interface Parameters {
   deck?: string
@@ -78,6 +78,13 @@ export default (): JSX.Element => {
       dispatch(addTrainStats(id))
     }
 
+  const startGameClick = () => {
+    if (gameStatus === 'playing') {
+      return repeatLastWord()
+    }
+    return startNewGame()
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>{currentDeck.name}</h1>
@@ -111,20 +118,7 @@ export default (): JSX.Element => {
         ))}
       </section>
       {isGame && (
-        <button
-          style={{
-            width: '50%',
-            border: 'none',
-            background: '#faf',
-            padding: '0.5rem',
-            marginBottom: '2rem',
-            borderRadius: '2rem',
-            color: 'white',
-          }}
-          type='button'
-          onClick={gameStatus === 'playing' ? () => repeatLastWord() : () => startNewGame()}>
-          {gameStatus === 'playing' ? 'Repeat last word' : 'Start Game'}
-        </button>
+        <Button onClick={startGameClick}>{gameStatus === 'playing' ? 'Repeat last word' : 'Start Game'}</Button>
       )}
     </div>
   )

@@ -2,10 +2,11 @@ import React, { FC, MouseEvent, useEffect, useState } from 'react'
 import clsx from 'clsx'
 
 import { ErrorIcon, SuccessIcon, Flip } from '../Icons'
-import errorSrc from '../../../public/assets/audio/error.mp3'
-import correctSrc from '../../../public/assets/audio/correct.mp3'
 
 import styles from './card.module.scss'
+
+const errorSrc = '/assets/audio/error.mp3'
+const correctSrc = '/assets/audio/correct.mp3'
 
 interface Properties {
   word: string
@@ -48,18 +49,20 @@ export const GameCard: FC<Properties> = ({ audioSrc, isGame, word, onClick, imag
   }
 
   return (
-    <figure className={clsx(styles.card, isFlipped && styles.flipped)} onMouseLeave={flipToFront}>
-      {isMatch && <SuccessIcon />}
-      {isWrong && <ErrorIcon />}
-      <button type='button' onClick={enrichedClick}>
-        <img src={image} alt={word} />
-        {!isGame && <h3>{isFlipped ? translation : word}</h3>}
-      </button>
-      {!isGame && !isFlipped && (
-        <button onClick={flipToBack} className={styles.flip} type='button'>
-          <Flip />
+    <div className={styles.container} onMouseLeave={flipToFront}>
+      <figure className={clsx(styles.card, isFlipped && styles.flipped)}>
+        {isMatch && <SuccessIcon />}
+        {isWrong && <ErrorIcon />}
+        <button type='button' onClick={enrichedClick}>
+          <img src={image} alt={word} />
+          {!isGame && <h3>{isFlipped ? translation : word}</h3>}
         </button>
-      )}
-    </figure>
+        {!isGame && !isFlipped && (
+          <button onClick={flipToBack} className={styles.flip} type='button'>
+            <Flip />
+          </button>
+        )}
+      </figure>
+    </div>
   )
 }

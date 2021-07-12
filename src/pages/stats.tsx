@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { FullState, resetStats } from '../store'
+import { FullState, resetStats, repeatDifficult } from '../store'
+import { Button } from '../components'
 
 export default (): JSX.Element => {
   const dispatch = useDispatch()
@@ -11,19 +12,17 @@ export default (): JSX.Element => {
     dispatch(resetStats())
   }
 
-  // const repeat = () => {
-  //   dispatch(repeatDifficult())
-  // }
+  const repeat = () => {
+    dispatch(repeatDifficult())
+  }
 
   return (
     <>
       <h1>Statistics</h1>
-      {/* <button type='button' onClick={repeat}>
-        Repeat difficult
-      </button> */}
-      <button type='button' onClick={reset}>
-        Reset
-      </button>
+      <div style={{ display: 'flex' }}>
+        <Button onClick={repeat}>Repeat difficult</Button>
+        <Button onClick={reset}>Reset</Button>
+      </div>
       <div style={{ overflowX: 'auto' }}>
         <table style={{ borderSpacing: '8px' }}>
           <thead>
