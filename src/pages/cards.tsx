@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { FullState, addGameStats, addTrainStats, clickCard, setCurrentDeck, startGame } from '../store'
+import { FullState, addGameStats, addTrainStats, clickCard, setCurrentDeck, startGame, repeatWord } from '../store'
 import { GameCard } from '../components/GameCard'
 
 interface Parameters {
@@ -53,6 +53,10 @@ export default (): JSX.Element => {
     dispatch(startGame())
   }
 
+  const repeatLastWord = (): void => {
+    dispatch(repeatWord())
+  }
+
   if (!currentDeck) {
     return <div>Please select a valid page from a menu</div>
   }
@@ -97,8 +101,8 @@ export default (): JSX.Element => {
             color: 'white',
           }}
           type='button'
-          onClick={startNewGame}>
-          Start Game
+          onClick={gameStatus === 'playing' ? () => repeatLastWord() : () => startNewGame()}>
+          {gameStatus === 'playing' ? 'Repeat last word' : 'Start Game'}
         </button>
       )}
     </div>

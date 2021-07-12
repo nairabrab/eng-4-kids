@@ -83,6 +83,9 @@ export const gameSlice = createSlice({
         state.cardsLeft = cardsLeft
       }
     },
+    repeatWord: state => {
+      void new Audio(state.currentCard?.audioSrc).play()
+    },
     clickCard: (state, { payload }: PayloadAction<ClickCardPayload>) => {
       const { id, order } = payload
       if (!state.isGame || state.gameStatus === 'idle') {
@@ -126,5 +129,6 @@ export const gameSlice = createSlice({
   },
 })
 
-export const { setCurrentDeck, setCurrentCard, gameModeOn, resetGameMode, startGame, clickCard } = gameSlice.actions
+export const { setCurrentDeck, setCurrentCard, gameModeOn, resetGameMode, startGame, repeatWord, clickCard } =
+  gameSlice.actions
 export default gameSlice.reducer

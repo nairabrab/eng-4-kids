@@ -12,8 +12,8 @@ interface Properties {
   image: string
   onClick: () => void
   isWrong: boolean
-  isMatch: boolean
-  isGame: boolean
+  isMatch?: true
+  isGame?: true
   audioSrc: string
   translation: string
 }
