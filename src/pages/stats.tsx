@@ -42,7 +42,7 @@ export default (): JSX.Element => {
                 <td>{trainingCount}</td>
                 <td>{rightCount}</td>
                 <td>{mismatchCount}</td>
-                <td>{Math.round((mismatchCount / (mismatchCount + rightCount)) * 100) || 0}</td>
+                <td>{Math.round((rightCount / (mismatchCount + rightCount)) * 100) || 0}</td>
               </tr>
             ))}
           </tbody>

@@ -20,6 +20,7 @@
 }
 
 .active {
+  position: fixed;
   span {
     &:nth-child(1) {
       transform: rotate(-45deg) translate(-9px, 6px);
