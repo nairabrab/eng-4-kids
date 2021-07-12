@@ -22,7 +22,7 @@ export const GameCard: FC<Properties> = ({ audioSrc, isGame, word, onClick, imag
   const [isFlipped, setIsFlipped] = useState(false)
 
   const enrichedClick = async () => {
-    if (!isGame) {
+    if (!isGame && !isFlipped) {
       await new Audio(audioSrc).play()
     }
     onClick()
