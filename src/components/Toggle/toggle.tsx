@@ -12,7 +12,7 @@ export const Toggle: FC<Props> = ({ value, toggle, text }) => {
   return (
     <div className={styles.container}>
       <label className={styles.toggle}>
-        <input onChange={toggle} defaultChecked={value} type='checkbox' />
+        <input type='checkbox' value={text} onChange={toggle} defaultChecked={false} />
         <span />
       </label>
       <span>{text}</span>

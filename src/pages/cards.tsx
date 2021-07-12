@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -24,6 +24,17 @@ export default (): JSX.Element => {
   const gameStatus = useSelector((state: FullState) => state.game.gameStatus)
   const lastAction = useSelector((state: FullState) => state.game.lastAction)
   const currentWrong = useSelector((state: FullState) => state.game.currentWrong)
+  const [stars, setStars] = useState<boolean[]>([])
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    if (currentWrong.length) setStars([...stars, false])
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    else if (currentCard) setStars([...stars, true])
+    console.log(stars.slice(1, 3))
+    console.log(stars)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWrong, currentCard])
 
   useEffect(() => {
     dispatch(setCurrentDeck(deck))
@@ -71,9 +82,25 @@ export default (): JSX.Element => {
       dispatch(addTrainStats(id))
     }
 
+  // Math.floor(Math.random() * 10)
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>{currentDeck.name}</h1>
+      <div>
+        {isGame &&
+          stars
+            .map((el, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <span key={i} className={el ? 'happy' : 'sad'}>
+                {' '}
+              </span>
+            ))
+            .reverse()
+            .slice(0, 10)
+            .reverse()
+            .slice(1)}
+      </div>
       <section>
         {currentDeck.cards.map(({ word, order, image, match, audioSrc, translation }) => (
           <GameCard

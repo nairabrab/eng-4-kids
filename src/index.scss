@@ -32,3 +32,11 @@ section {
   justify-content: space-evenly;
   justify-items: center;
 }
+
+.happy::after{
+  content: "\01F525";
+}
+
+.sad::after{
+  content: "\01F4A9";
+}
