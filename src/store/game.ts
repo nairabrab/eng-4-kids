@@ -44,18 +44,18 @@ export const gameSlice = createSlice({
         state.currentDeck = payload
       }
     },
-    setCurrentCard: (state, { payload }: PayloadAction<string>) => {
-      const currentDeckIndex = state.currentDeck
+    // setCurrentCard: (state, { payload }: PayloadAction<string>) => {
+    //   const currentDeckIndex = state.currentDeck
 
-      if (!currentDeckIndex) {
-        return
-      }
+    //   if (!currentDeckIndex) {
+    //     return
+    //   }
 
-      const currentCard = state.decks[currentDeckIndex].cards.find(card => card.word === payload)
-      if (currentCard) {
-        state.currentCard = currentCard
-      }
-    },
+    //   const currentCard = state.decks[currentDeckIndex].cards.find(card => card.word === payload)
+    //   if (currentCard) {
+    //     state.currentCard = currentCard
+    //   }
+    // },
     gameModeOn: state => {
       state.isGame = true
     },
@@ -129,6 +129,5 @@ export const gameSlice = createSlice({
   },
 })
 
-export const { setCurrentDeck, setCurrentCard, gameModeOn, resetGameMode, startGame, repeatWord, clickCard } =
-  gameSlice.actions
+export const { setCurrentDeck, gameModeOn, resetGameMode, startGame, repeatWord, clickCard } = gameSlice.actions
 export default gameSlice.reducer
